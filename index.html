@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Sofia&display=swap">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="640" height="640"></canvas>
+
+    <div id="scoreBoard">
+      <p id="playerScore" style="color: #99C987;">Your apples: 0</p>
+      <p id="opponentScore" style="color: #D70074;">Opponent apples: 0</p>
+
+      <div class="tooltip-heading">
+        <p id="speedLabel">Opponent snake speed</p>
+        <span class="tooltip-text">changing your opponent's speed within the 1–50 range</span>
+      </div>
+      <div id="speedControls">
+        <button id="slowerBtn">← slower</button>
+        <span id="speedDisplay">50</span>
+        <button id="fasterBtn">faster →</button>
+      </div>
+
+      <div class="tooltip-heading">
+        <p>Walls permeability</p>
+        <span class="tooltip-text">enabling the snakes to go through the frame</span>
+      </div>
+      <div id="wallControls">
+        <button id="wallOnBtn">ON</button>
+        <button id="wallOffBtn">OFF</button>
+      </div>
+
+      <div class="tooltip-heading">
+        <p>Snakes crashability</p>
+        <span class="tooltip-text">enabling the snakes to crash into themselves and each other</span>
+      </div>
+      <div id="crushControls">
+        <button id="crushOnBtn">ON</button>
+        <button id="crushOffBtn">OFF</button>
+      </div>
+
+      <div class="tooltip-heading">
+        <p>Winning point</p>
+        <span class="tooltip-text">score needed to win the game</span>
+      </div>
+      <div id="winPointControls">
+        <input type="number" id="winPointInput" value="15" min="1" max="100" />
+      </div>
+
+      <div id="pauseControls">
+        <button id="pauseBtn" title="Pause/Resume Game">
+          <div class="pause-icon">
+            <div class="bar bar-left"></div>
+            <div class="bar bar-right"></div>
+          </div>
+          <div class="play-icon"></div>
+        </button>
+      </div>
+
+      <p></p>
+      <button id="restartBtn">Restart</button>
+    </div>
+
+    <script src="snake-cactus.js"></script>
+  </div>
+</body>
+</html>

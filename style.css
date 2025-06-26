@@ -1,0 +1,218 @@
+body {
+  font-family: sans-serif;
+  background: white url("assets/cactus_brand_background.png") no-repeat center top;
+  background-size: 80% auto;  /* Stretch to full width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-position: right top;
+  padding-top: 20px;
+
+  min-width: 640px;
+  min-height: 640px;
+  overflow: auto;
+}
+
+
+#gameContainer {
+  display: flex;
+  align-items: flex-start;
+  border: 4px solid black;
+  background-color: #ffffff; /* 🌟 this is the gap color */
+  min-width: 920px;
+  gap: 18px; /* space between canvas and scoreboard */
+  border-radius: 8px; /* optional: rounded corners */
+}
+
+#scoreBoard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+  min-width: 180px;
+}
+
+canvas {
+  border: 1px solid rgb(0, 0, 0);
+  background-color: #ffffff;
+}
+
+#speedControls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#speedControls button {
+  font-size: 14px;
+  padding: 4px 10px;
+  font-weight: bold;
+  background-color: #ededed;
+  border: 2px solid black;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#speedDisplay {
+  min-width: 40px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #ffffff;
+  border: 2px solid black;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+#wallControls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#wallControls button {
+  font-size: 14px;
+  padding: 4px 10px;
+  font-weight: bold;
+  background-color: #f0f0f0;
+  border: 2px solid black;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#wallControls button.active {
+  background-color: #666;
+  color: white;
+  border-color: black;
+  box-shadow: inset 0 0 4px #00000044;
+}
+
+#crushControls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#crushControls button {
+  font-size: 14px;
+  padding: 4px 10px;
+  font-weight: bold;
+  background-color: #f0f0f0;
+  border: 2px solid black;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#crushControls button.active {
+  background-color: #666;
+  color: white;
+  border-color: black;
+  box-shadow: inset 0 0 4px #00000044;
+}
+
+#winPointControls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#winPointInput {
+  width: 60px;
+  padding: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 6px;
+  text-align: center;
+}
+
+#pauseControls {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  width: 100%;
+}
+
+#pauseBtn {
+  width: 60px;
+  height: 60px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: white;
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pause-icon {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  width: 24px;
+  height: 30px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bar {
+  width: 6px;
+  height: 100%;
+  background-color: #D70074;
+  border: 2px solid black; /* ← doubled from 1px */
+  border-radius: 2px;
+}
+
+.play-icon {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 24px solid #99C987;
+  transform: translateX(3px);
+  display: none;
+
+  /* Create outline effect using drop-shadow */
+  filter: drop-shadow(-1px 0px 0 black)
+          drop-shadow(1px 0px 0 black)
+          drop-shadow(0px -1px 0 black)
+          drop-shadow(0px 2px 0 black);
+}
+
+.tooltip-heading {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-heading .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  left: 110%;
+  top: 0;
+  background-color: #f9f9f9;
+  color: #666;
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  white-space: normal;
+  z-index: 1000;
+  width: max-content;
+  max-width: 220px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.tooltip-heading:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
