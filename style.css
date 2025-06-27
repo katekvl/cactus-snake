@@ -17,8 +17,24 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between; /* Space between images */
-  align-items: center; /* Align images vertically */
+  align-items: left; /* Align images vertically */
 }
+
+#imageContainer {
+  display: flex;
+  flex-direction: column; /* Arrange images vertically */
+  justify-content: space-between; /* Space between images */
+  align-items: center; /* Center images horizontally */
+}
+
+.image {
+  flex: 0 0 auto; /* Prevent images from shrinking */
+  width: auto; /* Maintain aspect ratio */
+  height: 300px; /* Fixed height for each image */
+  left: 0;
+  margin: 5px 0; /* Optional spacing between images */
+}
+
 
 #gameContainer {
   display: flex;
@@ -318,21 +334,16 @@ canvas {
   top: 40vh;
   left: 0;
 }
-*/
-#imageContainer {
-  display: flex;
-  flex-direction: column; /* Arrange images vertically */
-  justify-content: space-between; /* Space between images */
-  align-items: center; /* Center images horizontally */
-  width: 80%; /* Full width of the window */
-}
 
-.image {
-  flex: 0 0 auto; /* Prevent images from shrinking */
-  width: auto; /* Maintain aspect ratio */
-  height: 300px; /* Fixed height for each image */
-  margin: 5px 0; /* Optional spacing between images */
+#leftColumn {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+*/
 
 #buttonStack {
   display: flex;
@@ -379,15 +390,6 @@ canvas {
   border-radius: 10px;
   background-color: white;
   color: black;
-}
-
-#leftColumn {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 #visitLink {
