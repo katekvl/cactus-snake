@@ -14,19 +14,17 @@ body {
 }
 
 #mainContainer {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Space between images */
+  align-items: center; /* Align images vertically */
 }
-
 
 #gameContainer {
   display: flex;
   align-items: flex-start;
   border: 4px solid black;
   background-color: #ffffff; /* 🌟 this is the gap color */
-  min-width: 920px;
   gap: 18px; /* space between canvas and scoreboard */
   border-radius: 8px; /* optional: rounded corners */
 }
@@ -288,24 +286,52 @@ canvas {
   opacity: 1;
 }
 
+/*
 #cornerIcon {
   position: fixed;
   top: 12vh;
   left: 0;
-  width: 280px;         /* Adjust size */
+  width: 280px;
   height: auto;
-  z-index: 999;        /* Make sure it's on top */
-  pointer-events: none; /* Avoid blocking any UI */
+  z-index: 999;
+  pointer-events: none;
+}
+
+#cornerIcon {
+  position: fixed;
+  left: 0;
+}
+*/
+/*
+#leftMessageStrip {
+  position: fixed;
+  top: 40vh;
+  left: 0;
+  transform: translateY(-50%);
+  height: 60vh;
+  z-index: 0;
+  pointer-events: none;
 }
 
 #leftMessageStrip {
   position: fixed;
+  top: 40vh;
   left: 0;
-  top: 61%;
-  transform: translateY(-50%);
-  height: 60vh; /* Adjust as needed */
-  z-index: 0; /* behind the container */
-  pointer-events: none; /* avoid accidental clicks */
+}
+*/
+#imageContainer {
+  display: flex;
+  flex-direction: column; /* Arrange images vertically */
+  justify-content: space-between; /* Space between images */
+  align-items: center; /* Center images horizontally */
+  width: 80%; /* Full width of the window */
+}
+
+.image {
+  flex: 0 0 auto; /* Prevent images from shrinking */
+  width: auto; /* Maintain aspect ratio */
+  height: 300px; /* Fixed height for each image */
+  margin: 5px 0; /* Optional spacing between images */
 }
 
 #buttonStack {
@@ -357,7 +383,7 @@ canvas {
 
 #leftColumn {
   position: absolute;
-  left: 20px; /* adjust as needed */
+  left: 20px;
   top: 20px;
   display: flex;
   flex-direction: column;
