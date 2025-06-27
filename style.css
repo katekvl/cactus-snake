@@ -13,6 +13,13 @@ body {
   overflow: auto;
 }
 
+#mainContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
 
 #gameContainer {
   display: flex;
@@ -135,9 +142,75 @@ canvas {
   width: 100%;
 }
 
+#restartControls {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  width: 100%;
+}
+
+#timerControls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#timerInput {
+  font-size: 28px;
+  font-weight: bold;
+  font-family: monospace;
+  color: black;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+  width: 100px;
+  text-align: center;
+  padding: 4px 10px;
+}
+
+#restartBtn {
+  width: 42px;
+  height: 42px;
+  /* border: 2px solid black; */
+  border-radius: 50%;
+  background-color: white;
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.restart-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 4px solid #F39200; /* Key orange */
+  border-right-color: transparent;
+  border-radius: 50%;
+  transform: rotate(45deg);
+  box-sizing: border-box;
+}
+
+/* Arrowhead tip */
+.restart-icon::after {
+  content: "";
+  position: absolute;
+  top: -0.2vh;
+  right: -0.9vh;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 0 4px 8px;
+  border-color: transparent transparent transparent #F39200;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
 #pauseBtn {
-  width: 60px;
-  height: 60px;
+  width: 42px;
+  height: 42px;
   border: 2px solid black;
   border-radius: 50%;
   background-color: white;
@@ -151,37 +224,38 @@ canvas {
 
 .pause-icon {
   display: flex;
-  gap: 8px;
+  gap: 0.5px;
   position: absolute;
-  width: 24px;
-  height: 30px;
+  width: 17px;
+  height: 21px;
   justify-content: space-between;
   align-items: center;
 }
 
 .bar {
-  width: 6px;
-  height: 100%;
+  width: 4px;
+  height: 70%;
   background-color: #D70074;
-  border: 2px solid black; /* ← doubled from 1px */
+  /* border: 2px solid black; ← doubled from 1px */
   border-radius: 2px;
+  margin: 0 2px;
 }
 
 .play-icon {
   position: absolute;
   width: 0;
   height: 0;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-left: 24px solid #99C987;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 15px solid #99C987;
   transform: translateX(3px);
   display: none;
 
-  /* Create outline effect using drop-shadow */
+  /* Create outline effect using drop-shadow
   filter: drop-shadow(-1px 0px 0 black)
           drop-shadow(1px 0px 0 black)
           drop-shadow(0px -1px 0 black)
-          drop-shadow(0px 2px 0 black);
+          drop-shadow(0px 2px 0 black); */
 }
 
 .tooltip-heading {
@@ -214,5 +288,127 @@ canvas {
   opacity: 1;
 }
 
+#cornerIcon {
+  position: fixed;
+  top: 12vh;
+  left: 0;
+  width: 280px;         /* Adjust size */
+  height: auto;
+  z-index: 999;        /* Make sure it's on top */
+  pointer-events: none; /* Avoid blocking any UI */
+}
 
+#leftMessageStrip {
+  position: fixed;
+  left: 0;
+  top: 61%;
+  transform: translateY(-50%);
+  height: 60vh; /* Adjust as needed */
+  z-index: 0; /* behind the container */
+  pointer-events: none; /* avoid accidental clicks */
+}
+
+#buttonStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* space between the buttons */
+  margin: 10px 0;
+}
+
+#controlRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: -5px;
+  flex-wrap: wrap;
+}
+
+#controlRow button {
+  transform: scale(0.8); /* Adjust button size */
+}
+
+#timerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#timerLabel {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 3px;
+  color: black;
+}
+
+#timerInput {
+  font-family: 'Courier New', monospace;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  width: 80px;
+  padding: 4px 6px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+}
+
+#leftColumn {
+  position: absolute;
+  left: 20px; /* adjust as needed */
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#visitLink {
+  margin-top: 580px;
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+#visitLink:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#startOverlayBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 60px;
+  font-size: 24px;
+  font-weight: bold;
+  border: 3px solid black;
+  background-color: white;
+  border-radius: 15px;
+  z-index: 10;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.start-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  padding: 10px 20px;
+  background-color: #99C987;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#startOverlayBtn.hidden {
+  display: none;
+}
 

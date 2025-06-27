@@ -9,12 +9,20 @@
 </head>
 
 <body>
+
+  <div id="leftColumn">
+  <img id="cornerIcon" src="assets/cactus_graphics_ltd_logo_with_words.png" alt="Corner Decoration" />
+  <img id="leftMessageStrip" src="assets/design_print_display_transparent_background.png" alt="Cactus Message Strip" />
+  <a id="visitLink" href="https://cactusgraphics.co.uk/" target="_blank">Go to the website</a>
+</div>
+  
   <div id="gameContainer">
     <canvas id="gameCanvas" width="640" height="640"></canvas>
+    <button id="startOverlayBtn">START</button>
 
     <div id="scoreBoard">
-      <p id="playerScore" style="color: #99C987;">Your apples: 0</p>
-      <p id="opponentScore" style="color: #D70074;">Opponent apples: 0</p>
+      <p id="playerScore" style="color: #99C987;">Your score: 0</p>
+      <p id="opponentScore" style="color: #D70074;">Opponent score: 0</p>
 
       <div class="tooltip-heading">
         <p id="speedLabel">Opponent snake speed</p>
@@ -52,7 +60,16 @@
         <input type="number" id="winPointInput" value="15" min="1" max="100" />
       </div>
 
-      <div id="pauseControls">
+      <div class="tooltip-heading">
+        <p>Countdown timer</p>
+        <span class="tooltip-text">enter game time in MM:SS format</span>
+      </div>
+      <div id="timerControls">
+        <input id="timerInput" type="text" value="01:00" />
+      </div>
+      
+
+      <div id="controlRow">
         <button id="pauseBtn" title="Pause/Resume Game">
           <div class="pause-icon">
             <div class="bar bar-left"></div>
@@ -60,10 +77,14 @@
           </div>
           <div class="play-icon"></div>
         </button>
+      
+        <button id="restartBtn" title="Restart Game">
+          <div class="restart-icon"></div>
+        </button>
+      
       </div>
-
-      <p></p>
-      <button id="restartBtn">Restart</button>
+      
+      
     </div>
 
     <script src="snake-cactus.js"></script>

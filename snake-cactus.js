@@ -13,10 +13,34 @@ let crushable = false;  // true = collisions kill
 let winningScore = 15;
 let winnerMessage = null;
 let loop = null;
+let gameStarted = false;
 let isPaused = false;
+let countdownSeconds = 60;
+let timerInterval = null;
+let timerStarted = false;
+const timerInput = document.getElementById('timerInput');
+
+// ✅ Pause countdown while editing the timer input
+timerInput.addEventListener('focus', () => {
+  isEditingTimer = true;
+});
+
+timerInput.addEventListener('blur', () => {
+  isEditingTimer = false;
+});
+
+let isEditingTimer = false;
+
 
 const cactusImage = new Image();
 cactusImage.src = 'assets/outlined_cactus_logo.png'; // Adjust the path if necessary
+
+function renderInitialState() {
+    drawBackground();  // your existing background draw function
+    drawFrame();     // if you have this
+    drawSnakes();      // render both snakes at initial positions
+    //drawApple();       // or drawCactus() or whatever item
+  }  
 
 class LogicalPoint {
     constructor(x = 0, y = 0) {
@@ -81,6 +105,8 @@ class SnakeType {
                 if (this.role === 'my') {
                     alert('Game Over! You hit the wall!');
                     clearInterval(loop);
+                    clearInterval(timerInterval);
+
                 } else {
                     // Push computer back into valid range (basic handling)
                     head.x = Math.max(1, Math.min(N, head.x));
@@ -396,9 +422,9 @@ function drawDecorativeFramePattern() {
             ctx.lineTo(0, y - triangleSize);
         } else {
             // Right-angle at bottom-left
-            ctx.moveTo(0, y);
-            ctx.lineTo(triangleSize, y);
+            ctx.moveTo(0, y - triangleSize);
             ctx.lineTo(triangleSize, y - triangleSize);
+            ctx.lineTo(0, y);
         }
         ctx.closePath();
         ctx.fill();
@@ -477,8 +503,9 @@ function drawApple(mode) {
 function putApple(mySnake, computerSnake) {
     let posFound = false;
     while (!posFound) {
-        apple.x = Math.floor(Math.random() * N) + 1;
-        apple.y = Math.floor(Math.random() * N) + 1;
+        apple.x = Math.floor(Math.random() * (N - 2)) + 2;  // Range: [2, N-1]
+apple.y = Math.floor(Math.random() * (N - 2)) + 2;  // Avoids edges
+
         posFound = true;
         for (let i = 0; i < mySnake.bodyLength; i++) {
             if ((mySnake.body[i].x === apple.x && mySnake.body[i].y === apple.y) ||
@@ -505,6 +532,27 @@ function drawAppleCount(snake) {
         document.getElementById('opponentScore').textContent = 'Opponent score: ' + snake.appleCount;
     }
 }
+
+function startCountdown() {
+    if (timerStarted) return;
+    timerStarted = true;
+  
+    timerInterval = setInterval(() => {
+        if (isPaused || isEditingTimer) return;
+  
+      countdownSeconds--;
+      if (countdownSeconds <= 0) {
+        clearInterval(timerInterval);
+        alert('Time is up!');
+        clearInterval(loop);
+        clearInterval(timerInterval);
+
+      }
+      const minutes = String(Math.floor(countdownSeconds / 60)).padStart(2, '0');
+      const seconds = String(countdownSeconds % 60).padStart(2, '0');
+      timerInput.value = `${minutes}:${seconds}`;
+    }, 1000);
+  }    
 
 const mySnake = new SnakeType('my');
 const computerSnake = new SnakeType('computer');
@@ -576,12 +624,16 @@ function gameLoop() {
             if (equalPoints(mySnake.body[0], mySnake.body[i])) {
                 alert('Game Over! You crashed into yourself!');
                 clearInterval(loop);
+                clearInterval(timerInterval);
+
             }
         }
         for (let i = 0; i < computerSnake.bodyLength; i++) {
             if (equalPoints(mySnake.body[0], computerSnake.body[i])) {
                 alert('Game Over! You crashed into the opponent!');
                 clearInterval(loop);
+                clearInterval(timerInterval);
+
             }
         }
     }
@@ -627,6 +679,7 @@ function gameLoop() {
         setTimeout(() => {
           alert(winnerMessage);
           clearInterval(loop);
+          clearInterval(timerInterval);
         }, 50);
       }      
 
@@ -641,10 +694,11 @@ window.addEventListener('keydown', e => {
 });
 
 function startLoop() {
+    if (!timerStarted) startCountdown();  // ← Add this!
     loop = setInterval(gameLoop, 150);
   }
-  startLoop();
   
+  //startLoop();
 
 document.getElementById('restartBtn').addEventListener('click', () => {
     location.reload();
@@ -724,6 +778,21 @@ winPointInput.addEventListener('input', () => {
     }
 });
 
+timerInput.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') e.preventDefault();
+  });
+  
+  timerInput.addEventListener('input', () => {
+    const parts = timerInput.value.split(':');
+    if (parts.length === 2) {
+      const minutes = parseInt(parts[0], 10);
+      const seconds = parseInt(parts[1], 10);
+      if (!isNaN(minutes) && !isNaN(seconds)) {
+        countdownSeconds = minutes * 60 + seconds;
+      }
+    }
+  });  
+
 const pauseBtn = document.getElementById('pauseBtn');
 
 function updatePauseButton() {
@@ -737,6 +806,14 @@ function updatePauseButton() {
       pauseIcon.style.display = 'flex';
     }
   }
+
+  document.getElementById('startOverlayBtn').addEventListener('click', () => {
+    document.getElementById('startOverlayBtn').classList.add('hidden');
+    if (!gameStarted) {
+      startLoop();
+      gameStarted = true;
+    }
+  });  
   
 
 pauseBtn.addEventListener('click', () => {
@@ -752,3 +829,15 @@ pauseBtn.addEventListener('click', () => {
 
 // Initialize on load
 updatePauseButton();
+
+//window.onload = () => {
+//    renderInitialState();
+//    drawStartButton();  // if you have a special draw or DOM for it
+//  };
+
+window.onload = () => {
+    gameLoop(); // Draws the full game state once on load
+  };
+  
+
+  
